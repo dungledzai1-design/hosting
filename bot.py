@@ -31,10 +31,10 @@ from typing import Any, Deque, Dict, List, Optional, Tuple
 # ═══════════════════════════════════════════════════════════════════════
 
 # ─── TOKEN BOT (THAY BẰNG TOKEN CỦA BẠN) ──────────────────────────
-BOT_TOKEN_HARDCODED = "8321181205:AAHR-8t8Id3RlRGs9BaGyp9YnGS-OGVtgWk"  # ← THAY TOKEN CỦA BẠN VÀO ĐÂY
+BOT_TOKEN_HARDCODED = "8852312016:AAHbxoaiEdXxWYpYVdF_RFeQOFgMWlGc9kQ"  # ← THAY TOKEN CỦA BẠN VÀO ĐÂY
 
 # ─── ID ADMIN (THAY BẰNG ID TELEGRAM CỦA BẠN) ──────────────────────
-ADMIN_ID_HARDCODED = "6907359862"  # ← THAY ID ADMIN CỦA BẠN VÀO ĐÂY
+ADMIN_ID_HARDCODED = "8123442570"  # ← THAY ID ADMIN CỦA BẠN VÀO ĐÂY
 
 # ─── THÔNG TIN THƯƠNG HIỆU ──────────────────────────────────────────
 BRAND       = "𝐃𝐋𝐄𝐄 𝐃𝐄𝐕 🚀"
