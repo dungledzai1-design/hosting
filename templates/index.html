@@ -14,12 +14,14 @@
         .card { background: var(--card-bg); border: 1px solid var(--border-color); padding: 30px; border-radius: 20px; backdrop-filter: blur(10px); box-shadow: 0 8px 32px 0 rgba(0,0,0,0.37); margin-top: 50px; text-align: center; }
         h1 { font-weight: 800; font-size: 28px; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 2px; }
         p.subtitle { font-size: 14px; color: #888; margin-bottom: 20px; }
-        .tabs { display: flex; justify-content: center; margin-bottom: 20px; gap: 10px; }
-        .tab-btn { background: transparent; border: 1px solid var(--border-color); color: var(--text-color); padding: 10px 20px; border-radius: 10px; cursor: pointer; transition: 0.3s; font-weight: 600; }
+        
+        .tabs { display: flex; justify-content: center; margin-bottom: 20px; gap: 5px; flex-wrap: wrap;}
+        .tab-btn { background: transparent; border: 1px solid var(--border-color); color: var(--text-color); padding: 10px 15px; border-radius: 10px; cursor: pointer; transition: 0.3s; font-weight: 600; font-size: 14px;}
         .tab-btn.active { background: var(--accent-color); border-color: var(--accent-color); color: #fff; }
+        
         .form-group { display: none; text-align: left; }
         .form-group.active { display: block; }
-        input, textarea { width: 100%; padding: 15px; margin-bottom: 15px; background: transparent; border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-color); font-size: 14px; outline: none; box-sizing: border-box; transition: 0.3s; font-family: monospace; }
+        input { width: 100%; padding: 15px; margin-bottom: 15px; background: transparent; border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-color); font-size: 14px; outline: none; box-sizing: border-box; transition: 0.3s; font-family: monospace; }
         input:focus { border-color: var(--accent-color); }
         button.action-btn { width: 100%; padding: 15px; background: var(--accent-color); color: #fff; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.3s; }
         button.action-btn:hover { opacity: 0.8; }
@@ -51,11 +53,12 @@
             <h1>LE TIEN DUNG</h1>
             <p class="subtitle">Premium Locket Tool</p>
             
-            <div id="admin-badge" class="admin-badge">👑 ĐANG ĐĂNG NHẬP ADMIN (KHÔNG GIỚI HẠN)</div>
+            <div id="admin-badge" class="admin-badge">👑 ADMIN MODE (KHÔNG GIỚI HẠN)</div>
 
             <div class="tabs">
                 <button class="tab-btn active" onclick="switchTab(1)">Buff Gold</button>
                 <button class="tab-btn" onclick="switchTab(2)">Spam Kết Bạn</button>
+                <button class="tab-btn" onclick="switchTab(3)">Xoá Lời Mời</button>
             </div>
 
             <!-- TAB 1: BUFF GOLD -->
@@ -66,18 +69,28 @@
                 <div style="font-size: 12px; color: #ff9800; margin-bottom: 15px;">
                     ⚠️ Nếu thiếu Key, vui lòng liên hệ Admin (Zalo: 0969411158).
                 </div>
-                <button class="action-btn" onclick="injectGold()" id="btnBuff">Buff Gold Ngay (Free 3 Lượt/Ngày)</button>
+                <button class="action-btn" onclick="injectGold()" id="btnBuff">Buff Gold (Free 3 Lượt/Ngày)</button>
             </div>
 
             <!-- TAB 2: SPAM KẾT BẠN -->
             <div id="tab2" class="form-group">
-                <input type="text" id="targetUser" placeholder="Nhập Username hoặc Link Locket..." style="font-family: 'Inter', sans-serif;">
+                <input type="text" id="targetUser" placeholder="Nhập Username hoặc Link mục tiêu..." style="font-family: 'Inter', sans-serif;">
                 <input type="text" id="customName" placeholder="Tên hiển thị (Mặc định: zLocket)" value="zLocket Tool" style="font-family: 'Inter', sans-serif;">
                 <input type="number" id="amountAcc" placeholder="Số lượng acc (Max 10)" value="5" min="1" max="10">
                 <div style="font-size: 12px; color: #ff9800; margin-bottom: 15px;">
                     ⚠️ Chức năng này chỉ được dùng Free 1 lần/ngày.
                 </div>
-                <button class="action-btn" onclick="spamFriend()" id="btnSpam">Bắt Đầu Spam (Free 1 Lượt/Ngày)</button>
+                <button class="action-btn" onclick="spamFriend()" id="btnSpam">Spam Kết Bạn (Free 1 Lượt/Ngày)</button>
+            </div>
+            
+            <!-- TAB 3: XOÁ KẾT BẠN -->
+            <div id="tab3" class="form-group">
+                <input type="text" id="delEmail" placeholder="Email Locket của bạn..." style="font-family: 'Inter', sans-serif;">
+                <input type="password" id="delPass" placeholder="Mật khẩu Locket của bạn..." style="font-family: 'Inter', sans-serif;">
+                <div style="font-size: 12px; color: #ff9800; margin-bottom: 15px;">
+                    ⚠️ Tự động xoá toàn bộ lời mời kết bạn đang chờ (Free 3 Lượt/Ngày).
+                </div>
+                <button class="action-btn" onclick="deleteFriend()" id="btnDel">Xoá Tất Cả Lời Mời</button>
             </div>
 
             <div id="result"></div>
@@ -104,6 +117,7 @@
                 document.getElementById('admin-badge').style.display = 'block';
                 document.getElementById('btnBuff').innerText = 'Buff Gold (Admin)';
                 document.getElementById('btnSpam').innerText = 'Spam Kết Bạn (Admin)';
+                document.getElementById('btnDel').innerText = 'Xoá Lời Mời (Admin)';
                 document.getElementById('amountAcc').max = 50;
                 document.getElementById('amountAcc').value = 10;
             }
@@ -123,7 +137,7 @@
             const data = await res.json();
             if (data.success) {
                 closeLogin(); isAdmin = true; updateAdminUI();
-                showResult('success', 'Đăng nhập Admin thành công. Không giới hạn lượt dùng!');
+                showResult('success', 'Đăng nhập Admin thành công!');
             } else { alert(data.msg); }
         }
 
@@ -153,12 +167,12 @@
                     body: JSON.stringify({ username, fetch_token: fetchToken, app_transaction: appTransaction })
                 });
                 const data = await response.json();
-                showResult(data.success ? 'success' : 'error', data.msg + (data.uid ? ` (UID: ${data.uid})` : ''));
+                showResult(data.success ? 'success' : 'error', data.msg + (data.uid ? `\n(UID: ${data.uid})` : ''));
             } catch (error) {
                 showResult('error', 'Lỗi kết nối Server.');
             } finally {
                 btn.disabled = false; 
-                btn.innerText = isAdmin ? 'Buff Gold (Admin)' : 'Buff Gold Ngay (Free 3 Lượt/Ngày)';
+                btn.innerText = isAdmin ? 'Buff Gold (Admin)' : 'Buff Gold (Free 3 Lượt/Ngày)';
             }
         }
 
@@ -184,7 +198,32 @@
                 showResult('error', 'Lỗi Timeout hoặc Server.');
             } finally {
                 btn.disabled = false; 
-                btn.innerText = isAdmin ? 'Spam Kết Bạn (Admin)' : 'Bắt Đầu Spam (Free 1 Lượt/Ngày)';
+                btn.innerText = isAdmin ? 'Spam Kết Bạn (Admin)' : 'Spam Kết Bạn (Free 1 Lượt/Ngày)';
+            }
+        }
+
+        async function deleteFriend() {
+            const email = document.getElementById('delEmail').value.trim();
+            const password = document.getElementById('delPass').value.trim();
+            const btn = document.getElementById('btnDel');
+
+            if (!email || !password) { showResult('error', 'Vui lòng nhập đủ Email và Mật khẩu.'); return; }
+
+            btn.disabled = true; btn.innerText = 'Đang xoá...';
+            showResult('success', 'Đang login và xoá lời mời...');
+
+            try {
+                const res = await fetch('/api/delete_friend', {
+                    method: 'POST', headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ email, password })
+                });
+                const data = await res.json();
+                showResult(data.success ? 'success' : 'error', data.msg);
+            } catch (e) {
+                showResult('error', 'Lỗi Timeout hoặc Server.');
+            } finally {
+                btn.disabled = false; 
+                btn.innerText = isAdmin ? 'Xoá Lời Mời (Admin)' : 'Xoá Tất Cả Lời Mời';
             }
         }
 
