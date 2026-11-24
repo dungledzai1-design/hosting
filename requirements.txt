@@ -2,3 +2,5 @@ flask
 aiohttp
 flask-cors
 gunicorn
+requests
+colorama
