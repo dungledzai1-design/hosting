@@ -142,7 +142,10 @@ async def inject_gold(uid):
 
 @app.route('/')
 def index():
-    return render_template('index.html', is_admin=session.get('is_admin', False))
+    try:
+        return render_template('index.html', is_admin=session.get('is_admin', False))
+    except Exception as e:
+        return f"Lỗi không tìm thấy file index.html trong thư mục templates. Chi tiết: {e}", 500
 
 @app.route('/api/check_admin', methods=['GET'])
 def check_admin():
@@ -167,21 +170,23 @@ def logout():
 def api_inject():
     if not session.get('is_admin'):
         return jsonify({"success": False, "msg": "Bạn không phải Admin! Không có quyền Buff."})
+    
     data = request.json
     user_input = data.get('username', '').strip()
     if not user_input:
         return jsonify({"success": False, "msg": "Vui lòng nhập Username hoặc Link."})
     
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    uid = loop.run_until_complete(resolve_uid(user_input))
-    
-    if not uid:
-        return jsonify({"success": False, "msg": "Không tìm thấy UID từ User/Link này."})
-    
-    result = loop.run_until_complete(inject_gold(uid))
-    result['uid'] = uid
-    return jsonify(result)
+    try:
+        # FIX LỖI 500: Dùng asyncio.run thay vì new_event_loop để tương thích với Gunicorn/Render
+        uid = asyncio.run(resolve_uid(user_input))
+        if not uid:
+            return jsonify({"success": False, "msg": "Không tìm thấy UID từ User/Link này."})
+        
+        result = asyncio.run(inject_gold(uid))
+        result['uid'] = uid
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"success": False, "msg": f"Lỗi Server: {str(e)}"})
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
