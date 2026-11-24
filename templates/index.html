@@ -3,318 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Le Tien Dung - Locket Gold Tool</title>
+    <title>Le Tien Dung - Locket Tool</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-color: #000000;
-            --text-color: #ffffff;
-            --accent-color: #ffffff;
-            --card-bg: rgba(255, 255, 255, 0.05);
-        }
-        .light-mode {
-            --bg-color: #ffffff;
-            --text-color: #000000;
-            --accent-color: #000000;
-            --card-bg: rgba(0, 0, 0, 0.05);
-        }
-        body {
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-color);
-            color: var(--text-color);
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            background-image: radial-gradient(circle at 50% 0%, var(--card-bg) 0%, transparent 70%);
-        }
-        .container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-bg);
-            padding: 40px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-        }
-        h1 {
-            font-weight: 800;
-            font-size: 28px;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        p.subtitle {
-            font-size: 14px;
-            color: #888;
-            margin-bottom: 30px;
-        }
-        input {
-            width: 100%;
-            padding: 15px;
-            margin-bottom: 15px;
-            background: transparent;
-            border: 1px solid #555;
-            border-radius: 10px;
-            color: var(--text-color);
-            font-size: 16px;
-            outline: none;
-            box-sizing: border-box;
-            transition: 0.3s;
-        }
-        input:focus {
-            border-color: var(--accent-color);
-            box-shadow: 0 0 10px var(--card-bg);
-        }
-        button {
-            width: 100%;
-            padding: 15px;
-            background: var(--accent-color);
-            color: var(--bg-color);
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        button:hover {
-            opacity: 0.8;
-        }
-        button:disabled {
-            background: #555;
-            cursor: not-allowed;
-        }
-        #result {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 10px;
-            display: none;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-        .success { background: rgba(76, 175, 80, 0.2); color: #4caf50; border: 1px solid #4caf50; }
-        .error { background: rgba(244, 67, 54, 0.2); color: #f44336; border: 1px solid #f44336; }
-        .theme-toggle {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: var(--card-bg);
-            border: 1px solid var(--card-bg);
-            padding: 10px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            color: var(--text-color);
-        }
-        .info-section {
-            max-width: 800px;
-            margin: 40px auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            padding: 0 20px;
-        }
-        .info-card {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 15px;
-            border: 1px solid var(--card-bg);
-        }
-        .info-card h3 { margin-top: 0; }
-        .info-card p { font-size: 14px; color: #888; line-height: 1.6; }
-        .footer {
-            text-align: center;
-            padding: 20px;
-            font-size: 14px;
-            color: #666;
-            border-top: 1px solid var(--card-bg);
-        }
-        #loginModal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            background: var(--bg-color);
-            padding: 30px;
-            border-radius: 15px;
-            border: 1px solid var(--card-bg);
-            width: 300px;
-        }
-        .admin-badge {
-            display: none;
-            color: #4caf50;
-            font-size: 12px;
-            margin-bottom: 15px;
-            font-weight: bold;
-        }
-        @media (max-width: 600px) {
-            .info-section { grid-template-columns: 1fr; }
-        }
+        :root { --bg-color: #0f0f13; --text-color: #ffffff; --accent-color: #ff2e2e; --card-bg: rgba(255,255,255,0.05); --border-color: rgba(255,255,255,0.1); }
+        .light-mode { --bg-color: #f4f4f9; --text-color: #000000; --accent-color: #d90000; --card-bg: rgba(0,0,0,0.05); --border-color: rgba(0,0,0,0.1); }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg-color); color: var(--text-color); transition: 0.3s; min-height: 100vh; background-image: radial-gradient(circle at 50% 0%, rgba(255,46,46,0.15) 0%, transparent 60%); }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .theme-toggle { position: absolute; top: 20px; right: 20px; background: var(--card-bg); border: 1px solid var(--border-color); padding: 10px 15px; border-radius: 8px; cursor: pointer; color: var(--text-color); }
+        .card { background: var(--card-bg); border: 1px solid var(--border-color); padding: 30px; border-radius: 20px; backdrop-filter: blur(10px); box-shadow: 0 8px 32px 0 rgba(0,0,0,0.37); margin-top: 50px; text-align: center; }
+        h1 { font-weight: 800; font-size: 28px; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 2px; }
+        p.subtitle { font-size: 14px; color: #888; margin-bottom: 20px; }
+        .tabs { display: flex; justify-content: center; margin-bottom: 20px; gap: 10px; }
+        .tab-btn { background: transparent; border: 1px solid var(--border-color); color: var(--text-color); padding: 10px 20px; border-radius: 10px; cursor: pointer; transition: 0.3s; font-weight: 600; }
+        .tab-btn.active { background: var(--accent-color); border-color: var(--accent-color); color: #fff; }
+        .form-group { display: none; text-align: left; }
+        .form-group.active { display: block; }
+        input, textarea { width: 100%; padding: 15px; margin-bottom: 15px; background: transparent; border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-color); font-size: 14px; outline: none; box-sizing: border-box; transition: 0.3s; font-family: monospace; }
+        input:focus { border-color: var(--accent-color); }
+        button.action-btn { width: 100%; padding: 15px; background: var(--accent-color); color: #fff; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        button.action-btn:hover { opacity: 0.8; }
+        button.action-btn:disabled { background: #555; cursor: not-allowed; }
+        #result { margin-top: 20px; padding: 15px; border-radius: 10px; display: none; font-size: 14px; line-height: 1.5; text-align: left; word-break: break-all; white-space: pre-wrap;}
+        .success { background: rgba(76,175,80,0.2); color: #4caf50; border: 1px solid #4caf50; }
+        .error { background: rgba(244,67,54,0.2); color: #f44336; border: 1px solid #f44336; }
+        #loginModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; }
+        .modal-content { background: var(--bg-color); padding: 30px; border-radius: 15px; border: 1px solid var(--border-color); width: 300px; }
+        .admin-badge { display: none; color: #4caf50; font-size: 13px; margin-bottom: 15px; font-weight: bold; }
+        .footer { text-align: center; padding: 20px; font-size: 13px; color: #666; margin-top: 40px; }
     </style>
 </head>
 <body>
-
     <button class="theme-toggle" onclick="toggleTheme()">🌗 Đổi Màu</button>
 
     <div id="loginModal">
         <div class="modal-content">
             <h3 style="text-align:center;">Admin Login</h3>
-            <input type="text" id="adminUser" placeholder="Username (dungledev)">
-            <input type="password" id="adminPass" placeholder="Password">
-            <button onclick="doLogin()">Đăng Nhập</button>
-            <button onclick="closeLogin()" style="background:transparent; color:#888; margin-top:10px;">Đóng</button>
+            <input type="text" id="adminUser" placeholder="Username" style="font-family: 'Inter', sans-serif;">
+            <input type="password" id="adminPass" placeholder="Password" style="font-family: 'Inter', sans-serif;">
+            <button class="action-btn" onclick="doLogin()">Đăng Nhập</button>
+            <button onclick="closeLogin()" style="background:transparent; color:#888; margin-top:10px; border:none; width:100%; cursor:pointer;">Đóng</button>
         </div>
     </div>
 
     <div class="container">
         <div class="card">
             <h1>LE TIEN DUNG</h1>
-            <p class="subtitle">Locket Gold Premium Tool</p>
+            <p class="subtitle">Premium Locket Tool</p>
             
-            <div id="admin-badge" class="admin-badge">👑 ĐANG ĐĂNG NHẬP ADMIN</div>
+            <div id="admin-badge" class="admin-badge">👑 ĐANG ĐĂNG NHẬP ADMIN (KHÔNG GIỚI HẠN)</div>
 
-            <input type="text" id="username" placeholder="Nhập Username Locket...">
-            <button onclick="injectGold()" id="btn">Buff Gold Ngay</button>
-            
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab(1)">Buff Gold</button>
+                <button class="tab-btn" onclick="switchTab(2)">Spam Kết Bạn</button>
+            </div>
+
+            <!-- TAB 1: BUFF GOLD -->
+            <div id="tab1" class="form-group active">
+                <input type="text" id="username" placeholder="Nhập Username Locket..." style="font-family: 'Inter', sans-serif;">
+                <input type="text" id="fetchToken" placeholder="Nhập fetch_token (Key)...">
+                <input type="text" id="appTransaction" placeholder="Nhập app_transaction (Key)...">
+                <div style="font-size: 12px; color: #ff9800; margin-bottom: 15px;">
+                    ⚠️ Nếu thiếu Key, vui lòng liên hệ Admin (Zalo: 0969411158).
+                </div>
+                <button class="action-btn" onclick="injectGold()" id="btnBuff">Buff Gold Ngay (Free 3 Lượt/Ngày)</button>
+            </div>
+
+            <!-- TAB 2: SPAM KẾT BẠN -->
+            <div id="tab2" class="form-group">
+                <input type="text" id="targetUser" placeholder="Nhập Username hoặc Link Locket..." style="font-family: 'Inter', sans-serif;">
+                <input type="text" id="customName" placeholder="Tên hiển thị (Mặc định: zLocket)" value="zLocket Tool" style="font-family: 'Inter', sans-serif;">
+                <input type="number" id="amountAcc" placeholder="Số lượng acc (Max 10)" value="5" min="1" max="10">
+                <div style="font-size: 12px; color: #ff9800; margin-bottom: 15px;">
+                    ⚠️ Chức năng này chỉ được dùng Free 1 lần/ngày.
+                </div>
+                <button class="action-btn" onclick="spamFriend()" id="btnSpam">Bắt Đầu Spam (Free 1 Lượt/Ngày)</button>
+            </div>
+
             <div id="result"></div>
             
             <div style="margin-top:20px; font-size:12px;">
                 <a href="#" onclick="openLogin()" style="color:#888; text-decoration:none;">Đăng nhập Admin</a>
             </div>
         </div>
-    </div>
 
-    <div class="info-section">
-        <div class="info-card">
-            <h3>🌟 Locket Gold là gì?</h3>
-            <p>Locket Gold là gói đăng ký cao cấp của ứng dụng Locket Widget. Khi sở hữu Gold, bạn sẽ có thể tùy biến widget, sử dụng các icon độc quyền, không giới hạn bạn bè và loại bỏ hoàn toàn quảng cáo.</p>
+        <div class="footer">
+            &copy; 2024 Le Tien Dung. Zalo: 0969411158. All rights reserved.
         </div>
-        <div class="info-card">
-            <h3>⚡ Hướng dẫn sử dụng</h3>
-            <p>Chỉ cần nhập Username Locket của bạn vào ô bên trên và bấm "Buff Gold". Hệ thống sẽ tự động xử lý và kích hoạt gói Gold trực tiếp vào tài khoản của bạn.</p>
-        </div>
-        <div class="info-card">
-            <h3>🔒 Bảo mật tuyệt đối</h3>
-            <p>Hệ thống hoạt động hoàn toàn tự động, không yêu cầu mật khẩu hay thông tin cá nhân. Chúng tôi cam kết bảo mật an toàn cho tài khoản của bạn.</p>
-        </div>
-        <div class="info-card">
-            <h3>📞 Liên hệ hỗ trợ</h3>
-            <p>Nếu gặp bất kỳ vấn đề gì trong quá trình sử dụng, vui lòng liên hệ qua Zalo: <b>0969411158</b> để được hỗ trợ nhanh nhất.</p>
-        </div>
-    </div>
-
-    <div class="footer">
-        &copy; 2024 Le Tien Dung. Zalo: 0969411158. All rights reserved.
     </div>
 
     <script>
-        fetch('/api/check_admin')
-            .then(res => res.json())
-            .then(data => {
-                if (data.is_admin) updateAdminUI(true);
-            });
+        let isAdmin = false;
 
-        function updateAdminUI(isAdmin) {
-            const badge = document.getElementById('admin-badge');
-            const btn = document.getElementById('btn');
+        fetch('/api/check_admin').then(res => res.json()).then(data => {
+            if (data.is_admin) { isAdmin = true; updateAdminUI(); }
+        });
+
+        function updateAdminUI() {
             if (isAdmin) {
-                badge.style.display = 'block';
-                btn.disabled = false;
-                btn.innerText = 'Buff Gold Ngay';
-            } else {
-                badge.style.display = 'none';
-                btn.innerText = 'Vui lòng Đăng Nhập Admin';
+                document.getElementById('admin-badge').style.display = 'block';
+                document.getElementById('btnBuff').innerText = 'Buff Gold (Admin)';
+                document.getElementById('btnSpam').innerText = 'Spam Kết Bạn (Admin)';
+                document.getElementById('amountAcc').max = 50;
+                document.getElementById('amountAcc').value = 10;
             }
         }
 
-        function toggleTheme() {
-            document.body.classList.toggle('light-mode');
-        }
-
-        function openLogin() {
-            document.getElementById('loginModal').style.display = 'flex';
-        }
-
-        function closeLogin() {
-            document.getElementById('loginModal').style.display = 'none';
-        }
+        function toggleTheme() { document.body.classList.toggle('light-mode'); }
+        function openLogin() { document.getElementById('loginModal').style.display = 'flex'; }
+        function closeLogin() { document.getElementById('loginModal').style.display = 'none'; }
 
         async function doLogin() {
             const user = document.getElementById('adminUser').value;
             const pass = document.getElementById('adminPass').value;
-            
             const res = await fetch('/api/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                method: 'POST', headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({ username: user, password: pass })
             });
             const data = await res.json();
-            
             if (data.success) {
-                closeLogin();
-                updateAdminUI(true);
-                showResult('success', 'Đăng nhập thành công. Bạn có thể Buff Gold!');
-            } else {
-                alert(data.msg);
-            }
+                closeLogin(); isAdmin = true; updateAdminUI();
+                showResult('success', 'Đăng nhập Admin thành công. Không giới hạn lượt dùng!');
+            } else { alert(data.msg); }
+        }
+
+        function switchTab(tabIndex) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.form-group').forEach(g => g.classList.remove('active'));
+            document.querySelector(`.tab-btn:nth-child(${tabIndex})`).classList.add('active');
+            document.getElementById(`tab${tabIndex}`).classList.add('active');
+            document.getElementById('result').style.display = 'none';
         }
 
         async function injectGold() {
             const username = document.getElementById('username').value.trim();
-            const btn = document.getElementById('btn');
-            const resultDiv = document.getElementById('result');
+            const fetchToken = document.getElementById('fetchToken').value.trim();
+            const appTransaction = document.getElementById('appTransaction').value.trim();
+            const btn = document.getElementById('btnBuff');
 
-            if (!username) {
-                showResult('error', 'Vui lòng nhập Username.');
-                return;
-            }
+            if (!username) { showResult('error', 'Vui lòng nhập Username Locket.'); return; }
+            if (!fetchToken || !appTransaction) { showResult('error', 'Thiếu Token Config! Vui lòng liên hệ Admin (Zalo 0969411158) để lấy Key.'); return; }
 
-            btn.innerText = 'Đang xử lý...';
-            btn.disabled = true;
-            resultDiv.style.display = 'none';
+            btn.disabled = true; btn.innerText = 'Đang xử lý...';
+            showResult('success', 'Đang kết nối Server...');
 
             try {
                 const response = await fetch('/api/inject', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username: username })
+                    method: 'POST', headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ username, fetch_token: fetchToken, app_transaction: appTransaction })
                 });
                 const data = await response.json();
-                
-                if (data.success) {
-                    showResult('success', data.msg + ` (UID: ${data.uid})`);
-                } else {
-                    showResult('error', data.msg);
-                }
+                showResult(data.success ? 'success' : 'error', data.msg + (data.uid ? ` (UID: ${data.uid})` : ''));
             } catch (error) {
-                showResult('error', 'Lỗi kết nối Server. Vui lòng thử lại sau.');
+                showResult('error', 'Lỗi kết nối Server.');
             } finally {
-                btn.innerText = 'Buff Gold Ngay';
-                btn.disabled = false;
+                btn.disabled = false; 
+                btn.innerText = isAdmin ? 'Buff Gold (Admin)' : 'Buff Gold Ngay (Free 3 Lượt/Ngày)';
+            }
+        }
+
+        async function spamFriend() {
+            const target = document.getElementById('targetUser').value.trim();
+            const customName = document.getElementById('customName').value.trim();
+            const amount = document.getElementById('amountAcc').value.trim();
+            const btn = document.getElementById('btnSpam');
+
+            if (!target) { showResult('error', 'Vui lòng nhập Username hoặc Link.'); return; }
+
+            btn.disabled = true; btn.innerText = 'Đang Spam...';
+            showResult('success', 'Đang tạo acc và spam, vui lòng đợi...');
+
+            try {
+                const res = await fetch('/api/spam_friend', {
+                    method: 'POST', headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ target, custom_name: customName, amount })
+                });
+                const data = await res.json();
+                showResult(data.success ? 'success' : 'error', data.msg);
+            } catch (e) {
+                showResult('error', 'Lỗi Timeout hoặc Server.');
+            } finally {
+                btn.disabled = false; 
+                btn.innerText = isAdmin ? 'Spam Kết Bạn (Admin)' : 'Bắt Đầu Spam (Free 1 Lượt/Ngày)';
             }
         }
 
         function showResult(type, msg) {
-            const resultDiv = document.getElementById('result');
-            resultDiv.style.display = 'block';
-            resultDiv.className = type;
-            resultDiv.innerText = msg;
+            const div = document.getElementById('result');
+            div.style.display = 'block';
+            div.className = type;
+            div.innerText = msg;
         }
     </script>
 </body>
